@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortex Financial - Investment Research & Analysis</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #0066ff;
+            --secondary: #00d4ff;
+            --accent: #ff3b6b;
+            --dark: #0a0e27;
+            --light: #f0f4ff;
+            --white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1f4d 100%);
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 14, 39, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 100, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 102, 255, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1f4d 50%, #2d0a4d 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 102, 255, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 59, 107, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            bottom: -50px;
+            left: -50px;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(30px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            text-align: center;
+            animation: slideInUp 1s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 900;
+            letter-spacing: -2px;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #b0b9d4;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(0, 102, 255, 0.6);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--secondary);
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            border: 2px solid var(--secondary);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary);
+            color: var(--dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.3);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: -80px auto 0;
+            position: relative;
+            z-index: 20;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .stat-item {
+            text-align: center;
+            color: white;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #b0b9d4;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 6rem 2rem;
+            background: white;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-weight: 900;
+        }
+
+        .section-header p {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #f5f7ff 0%, #f0f4ff 100%);
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            transform: scaleY(0);
+            transform-origin: top;
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleY(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 102, 255, 0.15);
+            background: linear-gradient(135deg, #ffffff 0%, #f8faff 100%);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 20px rgba(0, 102, 255, 0.2);
+        }
+
+        .service-card h3 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .service-card p {
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .service-features {
+            list-style: none;
+        }
+
+        .service-features li {
+            color: #666;
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .service-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+            position: relative;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 102, 255, 0.05);
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(0, 102, 255, 0.2);
+        }
+
+        .portfolio-header {
+            height: 150px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .portfolio-content {
+            padding: 2rem;
+        }
+
+        .portfolio-category {
+            color: var(--secondary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .portfolio-title {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .portfolio-description {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .portfolio-detail {
+            font-size: 0.8rem;
+            color: #999;
+            font-style: italic;
+        }
+
+        /* Process Section */
+        .process {
+            padding: 6rem 2rem;
+            background: var(--dark);
+            color: white;
+        }
+
+        .process-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .process-section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+        }
+
+        .process-section-header h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 900;
+        }
+
+        .process-section-header p {
+            color: #b0b9d4;
+            font-size: 1.1rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary) 0%, transparent 100%);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            margin-left: 0;
+            text-align: right;
+            padding-right: 3rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            margin-left: 50%;
+            text-align: left;
+            padding-left: 3rem;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            background: rgba(0, 102, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.5);
+            transform: scale(1.05);
+        }
+
+        .timeline-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            color: #b0b9d4;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                margin-left: 0 !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                text-align: left;
+            }
+
+            .timeline-item:nth-child(odd) {
+                padding-right: 0;
+                text-align: left;
+            }
+
+            .timeline-item:nth-child(even) {
+                margin-left: 0;
+                padding-left: 0;
+            }
+        }
+
+        /* Team Section */
+        .team {
+            padding: 6rem 2rem;
+            background: white;
+        }
+
+        .team-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 102, 255, 0.1);
+        }
+
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 102, 255, 0.2);
+        }
+
+        .team-header {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 4rem;
+            font-weight: 900;
+        }
+
+        .team-content {
+            padding: 2rem;
+        }
+
+        .team-role {
+            color: var(--primary);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-location {
+            font-size: 1.3rem;
+            color: var(--dark);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .team-bio {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-expertise {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .expertise-tag {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1) 0%, rgba(0, 212, 255, 0.1) 100%);
+            color: var(--primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border: 1px solid rgba(0, 102, 255, 0.2);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1f4d 50%, #2d0a4d 100%);
+            color: white;
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .contact-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 900;
+        }
+
+        .contact-header p {
+            color: #b0b9d4;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: #7a8ab8;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(0, 102, 255, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(10, 14, 39, 0.8);
+            color: #b0b9d4;
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .section-header h2,
+            .process-section-header h2 {
+                font-size: 2.3rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .stats {
+                margin-top: -40px;
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h2,
+            .process-section-header h2 {
+                font-size: 2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn-primary,
+            .btn-secondary {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">CORTEX.</div>
+        <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#process">Process</a></li>
+            <li><a href="#team">Team</a></li>
+        </ul>
+        <button class="nav-btn" onclick="document.getElementById('contact').scrollIntoView()">Inquiry</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Investment Research Built for <span>Winners</span></h1>
+            <p>Elite financial analysis combining CFA-level thinking with CA-level precision. Deliver research that drives investment decisions.</p>
+            <div class="hero-buttons">
+                <button class="btn-primary" onclick="document.getElementById('contact').scrollIntoView()">Start Your Research</button>
+                <button class="btn-secondary" onclick="document.getElementById('services').scrollIntoView()">Explore Services</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Research Hours Delivered</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">$2B+</div>
+            <div class="stat-label">Assets Under Analysis</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">98%</div>
+            <div class="stat-label">Client Satisfaction Rate</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number">24H</div>
+            <div class="stat-label">Average Response Time</div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-header">
+            <h2>Our Services</h2>
+            <p>Comprehensive financial intelligence tailored to your investment strategy</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Equity Research Reports</h3>
+                <p>Comprehensive company analysis covering competitive positioning, financial durability, management quality, and valuation.</p>
+                <ul class="service-features">
+                    <li>Industry context & competitive mapping</li>
+                    <li>Business model analysis</li>
+                    <li>3–5 year financial projections</li>
+                    <li>Valuation & price targets</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">💰</div>
+                <h3>Financial Modeling</h3>
+                <p>Detailed financial models built to your specifications. DCF, comparables, precedent transactions, or custom frameworks.</p>
+                <ul class="service-features">
+                    <li>DCF & comparable company models</li>
+                    <li>Scenario & sensitivity analysis</li>
+                    <li>Custom financial frameworks</li>
+                    <li>Model documentation</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📈</div>
+                <h3>Investment Memos</h3>
+                <p>Concise, conviction-driven memos that make the investment case clearly and persuasively for decision-makers.</p>
+                <ul class="service-features">
+                    <li>2-5 page investment memos</li>
+                    <li>Pitch deck development</li>
+                    <li>Risk analysis & mitigants</li>
+                    <li>Position sizing recommendations</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🌍</div>
+                <h3>Industry Research</h3>
+                <p>Thematic analysis of sectors and emerging trends. Structured research for strategic investors building sector conviction.</p>
+                <ul class="service-features">
+                    <li>Industry structure & dynamics</li>
+                    <li>Competitive positioning maps</li>
+                    <li>Emerging opportunity analysis</li>
+                    <li>Macro & regulatory themes</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🔍</div>
+                <h3>Financial Statement Analysis</h3>
+                <p>Deep-dive accounting analysis. Earnings quality assessment, working capital trends, and cash flow sustainability.</p>
+                <ul class="service-features">
+                    <li>Quality of earnings analysis</li>
+                    <li>Cash flow statement analysis</li>
+                    <li>Balance sheet strength assessment</li>
+                    <li>Red flag detection</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">⚠️</div>
+                <h3>ESG & Risk Analysis</h3>
+                <p>Systematic assessment of environmental, social, and governance risks with performance impact analysis.</p>
+                <ul class="service-features">
+                    <li>ESG materiality assessment</li>
+                    <li>Risk quantification & scenarios</li>
+                    <li>Governance structure analysis</li>
+                    <li>Climate & regulatory risk</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio" id="portfolio">
+        <div class="section-header">
+            <h2>Sample Research</h2>
+            <p>A view of the work we deliver to our clients</p>
+        </div>
+
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <div class="portfolio-header">Semiconductor Equipment</div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">Industry Research</div>
+                    <h3 class="portfolio-title">Semiconductor Equipment Sector Deep Dive</h3>
+                    <p class="portfolio-description">Structural growth drivers, competitive positioning of incumbents vs. emerging players, and investment implications across the stack.</p>
+                    <p class="portfolio-detail">20-page thematic report with industry maps & financial projections</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <div class="portfolio-header">TATA Steel</div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">Equity Research</div>
+                    <h3 class="portfolio-title">TATA Steel: Competitive Sustainability</h3>
+                    <p class="portfolio-description">Examining cost position, capital allocation discipline, and ESG headwinds in India's largest integrated steelmaker.</p>
+                    <p class="portfolio-detail">16-page company report with 3-year DCF model</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <div class="portfolio-header">SaaS</div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">Market Research</div>
+                    <h3 class="portfolio-title">SaaS Profitability: Cohort-Based Analysis</h3>
+                    <p class="portfolio-description">Systematic study of unit economics across 50+ public SaaS companies, identifying patterns in path to durability.</p>
+                    <p class="portfolio-detail">Research memo with modeling framework & benchmarking</p>
+                </div>
+            </div>
+
+            <div class="portfolio-item">
+                <div class="portfolio-header">FinTech M&A</div>
+                <div class="portfolio-content">
+                    <div class="portfolio-category">Investment Framework</div>
+                    <h3 class="portfolio-title">Financial Services M&A: Deal Thesis Template</h3>
+                    <p class="portfolio-description">Structured framework for evaluating fintech acquisition attractiveness, synergy assumptions, and integration risk.</p>
+                    <p class="portfolio-detail">5-page investment memo with customizable DCF template</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="process">
+        <div class="process-container">
+            <div class="process-section-header">
+                <h2>How We Work</h2>
+                <p>Our approach to research and delivery</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-number">01</div>
+                        <div class="timeline-title">Discovery & Scope</div>
+                        <div class="timeline-description">We begin with your thesis. What's the investment question? We define scope, timeline, and key information needs.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-number">02</div>
+                        <div class="timeline-title">Research & Analysis</div>
+                        <div class="timeline-description">Our team conducts primary and secondary research, builds financial models, and synthesizes findings with regular updates.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-number">03</div>
+                        <div class="timeline-title">Challenge & Refine</div>
+                        <div class="timeline-description">We pressure-test conclusions, examine counterarguments, and refine analysis before delivery to you.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-number">04</div>
+                        <div class="timeline-title">Delivery & Insight</div>
+                        <div class="timeline-description">You receive polished reports, models, or memos with clear conclusions and actionable recommendations.</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-number">05</div>
+                        <div class="timeline-title">Support & Iteration</div>
+                        <div class="timeline-description">We're available to discuss findings, walk through models, or refine analysis based on new information.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team" id="team">
+        <div class="team-container">
+            <div class="section-header">
+                <h2>Meet Our Team</h2>
+                <p>CFA-level analytical thinking + CA-level accounting rigor</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-header">👔</div>
+                    <div class="team-content">
+                        <div class="team-role">Founder & Client Lead</div>
+                        <h3 class="team-location">United Kingdom</h3>
+                        <p class="team-bio">CFA Level II candidate with background in equity research and institutional investing. Manages client relationships and ensures quality standards.</p>
+                        <div class="team-expertise">
+                            <span class="expertise-tag">Investment Strategy</span>
+                            <span class="expertise-tag">Client Relations</span>
+                            <span class="expertise-tag">Quality Control</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="team-member">
+                    <div class="team-header">🚀</div>
+                    <div class="team-content">
+                        <div class="team-role">Research & Analysis</div>
+                        <h3 class="team-location">Pakistan</h3>
+                        <p class="team-bio">CA-finalist and CFA-level students with strong accounting and financial modeling expertise. Core analytical work and report development.</p>
+                        <div class="team-expertise">
+                            <span class="expertise-tag">Financial Analysis</span>
+                            <span class="expertise-tag">Model Building</span>
+                            <span class="expertise-tag">Sector Research</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="contact-container">
+            <div class="contact-header">
+                <h2>Get Started</h2>
+                <p>Tell us about your research needs. We'll review and contact you within 24 hours.</p>
+            </div>
+
+            <form onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="e.g., Sarah Chen" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="your@company.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="company">Company / Fund</label>
+                    <input type="text" id="company" name="company" placeholder="e.g., Vertex Capital" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="research">Research Need</label>
+                    <textarea id="research" name="research" placeholder="Tell us about your research needs..." required></textarea>
+                </div>
+
+                <button type="submit" class="form-submit">Submit Inquiry</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2024 Cortex Financial. All rights reserved.</p>
+        <p>Investment research & financial analysis for serious investors.</p>
+        <p>Email: <strong>hello@cortexfinancial.io</strong></p>
+    </footer>
+
+    <script>
+        function handleSubmit(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            alert(`Thank you, ${name}! We'll review your inquiry and contact you within 24 hours.`);
+            event.target.reset();
+        }
+
+        // Smooth scroll reveal animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.service-card, .portfolio-item, .team-member').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
